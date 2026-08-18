@@ -1,0 +1,12 @@
+node_modules/
+dist/
+.env
+.env.local
+
+# Local data store — personal data, never committed
+server/data/db.json
+server/data/*.tmp-*
+
+# Editor / OS
+.DS_Store
+*.log
