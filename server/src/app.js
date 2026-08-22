@@ -3,6 +3,7 @@
 import express from 'express';
 import cors from 'cors';
 import createInterviewsRouter from './routes/interviews.js';
+import createStoriesRouter from './routes/stories.js';
 
 export function createApp() {
   const app = express();
@@ -12,6 +13,7 @@ export function createApp() {
 
   app.get('/api/health', (req, res) => res.json({ ok: true }));
   app.use('/api/interviews', createInterviewsRouter());
+  app.use('/api/stories', createStoriesRouter());
 
   app.use('/api', (req, res) => res.status(404).json({ error: 'Not found' }));
 

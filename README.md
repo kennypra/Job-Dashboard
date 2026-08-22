@@ -4,10 +4,10 @@ A personal job-search dashboard: an interview pipeline tracker (with a STAR
 story bank, behavioral skills tracker, and technical prep tracker to follow
 in later milestones). Built against [`interview-pipeline-spec.md`](./interview-pipeline-spec.md).
 
-**Status:** Milestone 1 — Interview Pipeline Tracker — is complete. Story
-Bank, Behavioral Skills, AI Coach, Technical Prep, and the unified Dashboard
-are scaffolded as "coming soon" tabs and will be built out in later
-milestones (see [Milestones](#milestones--roadmap) below).
+**Status:** Milestones 1 (Interview Pipeline Tracker) and 2 (Story Bank) are
+complete. Behavioral Skills, AI Coach, Technical Prep, and the unified
+Dashboard are scaffolded as "coming soon" tabs and will be built out in
+later milestones (see [Milestones](#milestones--roadmap) below).
 
 ## Concept
 
@@ -41,18 +41,22 @@ server/           Express API + JSON-file store
   data/
     db.seed.json      Sample data, copied to db.json on first run
     db.json           The real local database (gitignored — personal data)
-  tests/              node:test suites for store.js and the interviews API
+  tests/              node:test suites for store.js, interviews, and stories
 
 client/           React (Vite) frontend
   src/
-    api/interviews.js        fetch wrapper for the interviews API
+    api/                     fetch wrappers: interviews.js, stories.js
     lib/                     constants, formatting, grouping/next-up logic
+                              (interviewLogic.js), coverage/tag logic
+                              (storyLogic.js), competencies.js
     components/              StatusBadge, NextUpBanner, FilterBar,
                               CompanyGroup, InterviewRow, InterviewFormModal,
-                              ErrorBanner
+                              StoryCard, StoryFormModal, CompetencyTagPicker,
+                              InterviewLinker, CompetencyCoverage, ErrorBanner
     pages/
       Pipeline.jsx            Milestone 1 — fully implemented
-      ComingSoon.jsx           placeholder for the other four tabs
+      Stories.jsx              Milestone 2 — fully implemented
+      ComingSoon.jsx           placeholder for the remaining three tabs
     styles/                   parchment theme + component styles
 ```
 
@@ -97,9 +101,9 @@ rather start from a truly empty board.
 npm test
 ```
 
-Runs the server test suite (25 tests): CRUD behavior of the JSON store
-(including a concurrency test — see below), interview validation rules, and
-full HTTP-level request/response checks for every route.
+Runs the server test suite (40 tests): CRUD behavior of the JSON store
+(including a concurrency test — see below), interview and story validation
+rules, and full HTTP-level request/response checks for every route.
 
 ## Persistence details
 
@@ -124,7 +128,9 @@ or discard unsaved input. Two things make that true here:
 
 1. ✅ **Interview Pipeline Tracker** — CRUD, company/location grouping,
    status filters, "next up" summary, reliable persistence.
-2. ⬜ Story Bank — STAR stories, competency tagging, coverage view.
+2. ✅ **Story Bank** — STAR story CRUD, competency tagging (default list +
+   free-form custom tags), interview-linking, coverage view (flags tags
+   with fewer than 2 stories as "thin").
 3. ⬜ Behavioral Skills Self-Assessment — rubric, ratings with history.
 4. ⬜ AI Coach — practice-answer feedback via the Claude API.
 5. ⬜ Technical Prep Tracker — topics, confidence ratings, review dates.
@@ -147,8 +153,18 @@ Interview {
   prepNotes, debriefNotes,
   createdAt, updatedAt
 }
+
+Story {
+  id, title, situation, task, action, result,
+  competencyTags: [string],   // default set + free-form custom tags
+  usedFor: [interviewId],
+  createdAt, updatedAt
+}
 ```
 
-`stories`, `competencies`, and `technicalTopics` collections already exist
-in the store (see `server/src/store.js`) with empty arrays, ready for
-Milestones 2, 3, and 5 to add routes and UI without a data migration.
+`competencies` and `technicalTopics` collections already exist in the
+store (see `server/src/store.js`) with empty arrays, ready for Milestones
+3 and 5 to add routes and UI without a data migration. The default
+competency tag list lives in `client/src/lib/competencies.js`, shared
+between the Story Bank's tag picker (Milestone 2) and the self-assessment
+rubric (Milestone 3) so the two stay cross-referenceable, per the spec.
