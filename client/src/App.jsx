@@ -1,22 +1,14 @@
 import { useState } from 'react';
 import PipelinePage from './pages/Pipeline.jsx';
 import StoriesPage from './pages/Stories.jsx';
+import SkillsPage from './pages/Skills.jsx';
 import ComingSoonPage from './pages/ComingSoon.jsx';
 import './styles/app.css';
 
 const TABS = [
   { id: 'pipeline', label: 'Pipeline', component: PipelinePage },
   { id: 'stories', label: 'Story Bank', component: StoriesPage },
-  {
-    id: 'skills',
-    label: 'Skills',
-    component: () => (
-      <ComingSoonPage
-        title="Behavioral Skills"
-        blurb="Self-assessment rubric with rating history — Milestone 3."
-      />
-    ),
-  },
+  { id: 'skills', label: 'Skills', component: SkillsPage },
   {
     id: 'technical',
     label: 'Technical Prep',

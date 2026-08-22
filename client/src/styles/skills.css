@@ -1,0 +1,183 @@
+.skills {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.skills__toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.skills__list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* --- Competency row -------------------------------------------------- */
+
+.competency-row {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.competency-row__main {
+  display: grid;
+  grid-template-columns: 1fr auto auto auto;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.competency-row__identity {
+  min-width: 0;
+}
+
+.competency-row__name {
+  margin: 0;
+  font-size: 1.05rem;
+}
+
+.competency-row__meta {
+  font-size: 0.72rem;
+  color: var(--color-text-faint);
+  margin-top: 0.2rem;
+}
+
+.competency-row__coverage {
+  color: var(--color-teal);
+  font-weight: 600;
+}
+
+.competency-row__coverage--thin {
+  color: var(--color-brick);
+}
+
+.competency-row__notes {
+  margin: 0.4rem 0 0;
+  font-size: 0.85rem;
+  color: var(--color-text-dim);
+}
+
+.competency-row__actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.competency-row__history-toggle {
+  align-self: flex-start;
+  font-size: 0.75rem;
+}
+
+.competency-row__history-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.8rem;
+}
+
+.competency-row__history-table th {
+  text-align: left;
+  color: var(--color-text-dim);
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 0.3rem 0.6rem;
+  border-bottom: 1px solid var(--color-panel-deep);
+}
+
+.competency-row__history-table td {
+  padding: 0.4rem 0.6rem;
+  border-bottom: 1px solid var(--color-panel-deep);
+  vertical-align: top;
+}
+
+/* --- Rating pips (shared: read-only display + interactive picker) ---- */
+
+.rating-pip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: 50%;
+  border: 1px solid var(--color-text-faint);
+  background: var(--color-panel);
+  color: var(--color-text-faint);
+  font-size: 0.8rem;
+  font-weight: 600;
+  font-family: var(--font-mono);
+}
+
+button.rating-pip:hover {
+  border-color: var(--color-text);
+  color: var(--color-text);
+}
+
+.rating-pip.is-selected {
+  background: var(--color-teal);
+  border-color: var(--color-teal);
+  color: var(--color-panel);
+}
+
+.competency-row__rating {
+  display: flex;
+  gap: 0.25rem;
+}
+
+.competency-row__rating .rating-pip--display {
+  width: 1.4rem;
+  height: 1.4rem;
+  font-size: 0.65rem;
+  cursor: default;
+}
+
+/* --- Rating field (inside the form modal) ----------------------------- */
+
+.rating-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.rating-field__label {
+  font-size: 0.8rem;
+  color: var(--color-text-dim);
+  font-weight: 600;
+}
+
+.rating-field__options {
+  display: flex;
+  gap: 0.5rem;
+}
+
+/* --- Sparkline --------------------------------------------------------- */
+
+.sparkline {
+  display: block;
+  overflow: visible;
+}
+
+.sparkline__line {
+  stroke: var(--color-teal);
+  stroke-width: 2;
+}
+
+.sparkline__dot {
+  fill: var(--color-teal);
+  stroke: var(--color-panel);
+  stroke-width: 1.5;
+}
+
+@media (max-width: 860px) {
+  .competency-row__main {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+  .competency-row__actions {
+    flex-direction: row;
+  }
+}

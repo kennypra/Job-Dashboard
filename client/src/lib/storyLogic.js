@@ -20,6 +20,16 @@ export function computeCoverage(stories) {
     .sort((a, b) => b.count - a.count || a.tag.localeCompare(b.tag));
 }
 
+// Cross-references an arbitrary competency name (from the Skills rubric,
+// Milestone 3) against Story Bank tags (Milestone 2), case-insensitively —
+// the two features share the same default name list but a renamed or
+// custom competency should still match its tag by spelling, not identity.
+export function countStoriesForTag(stories, tagName) {
+  const key = (tagName || '').trim().toLowerCase();
+  if (!key) return 0;
+  return stories.filter((s) => (s.competencyTags || []).some((t) => t.trim().toLowerCase() === key)).length;
+}
+
 export function interviewLabel(interview) {
   if (!interview) return 'Unknown interview';
   const where = interview.remote ? 'Remote' : interview.city || 'Location TBD';
