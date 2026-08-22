@@ -1,20 +1,12 @@
 import { useState } from 'react';
 import PipelinePage from './pages/Pipeline.jsx';
+import StoriesPage from './pages/Stories.jsx';
 import ComingSoonPage from './pages/ComingSoon.jsx';
 import './styles/app.css';
 
 const TABS = [
   { id: 'pipeline', label: 'Pipeline', component: PipelinePage },
-  {
-    id: 'stories',
-    label: 'Story Bank',
-    component: () => (
-      <ComingSoonPage
-        title="Story Bank"
-        blurb="STAR story builder with competency tagging and coverage view — Milestone 2."
-      />
-    ),
-  },
+  { id: 'stories', label: 'Story Bank', component: StoriesPage },
   {
     id: 'skills',
     label: 'Skills',
